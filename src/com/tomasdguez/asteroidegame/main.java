@@ -41,10 +41,13 @@ public class main extends Application {
  
         // Declaramos dimensiones de pantalla de 800 x 600 px y color de fondo GRIS, titulo.
         root = new Pane();
-        Scene scene = new Scene(root, SCENES_TAM_X, SCENES_TAM_Y, Color.GREY);
+        Scene scene = new Scene(root, SCENES_TAM_X, SCENES_TAM_Y, Color.rgb(249, 249, 249));
         primaryStage.setTitle("Asteroids Game");
         primaryStage.setScene(scene);
         primaryStage.show();
+        
+        // Declaramos las dimensiones de la nave.
+        
 
     }
 }
