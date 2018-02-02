@@ -49,22 +49,22 @@ public class main extends Application {
         });
         nave.setFill(Color.BLACK);
         root.getChildren().add(nave);
-    }  
-        // Declaramos el giro de la nave con 90º, usando la teclas izquierda y derecha.
+      
+// Declaramos el giro de la nave con 90º, usando la teclas izquierda y derecha.
 
-        // Mover la nave a una velocidad constante al acelara pulsando la tecla arriba.
+// Mover la nave a una velocidad constante al acelara pulsando la tecla arriba.
 
-// Mostramos otro polígono en la parte trasera cuando acelere color Gris.
-        Polygon fuego = new Polygon();
-        fuego.getPoints().addAll(new Double[]{
-            21.0, 11.0,
-            11.0, 21.0,
-            25.0, 25.0,    
+// Declaramos el segundo polígono en la parte trasera cuando acelere color Gris.
+        Polygon navetras = new Polygon();
+        navetras.getPoints().addAll(new Double[]{
+            20.5, 10.5,
+            10.5, 20.5,
+            21.0, 21.0    
         });
-        fuego.setFill(Color.GREY);
-        root.getChildren().add(llama);
+        navetras.setFill(Color.GREY);
+        root.getChildren().add(navetras);
         
-       
+    }   
         // Creamos la clase animación para el movimiento .
         //AnimationTimer animationRocket = null;
         //animationRocket = new AnimationTimer(){
