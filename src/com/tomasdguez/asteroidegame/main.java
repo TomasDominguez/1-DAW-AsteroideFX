@@ -107,7 +107,8 @@ public class main extends Application {
             public void handle(long now){
                 
         // Llamamos a la variable cuerpoNave para ejecutar el movimiento.
-            cuerpoNave();
+            cuerpoNave.setLayoutX(naveCenterX);
+            cuerpoNave.setLayoutY(naveCenterY);
                 
             } // Final del handle
             
