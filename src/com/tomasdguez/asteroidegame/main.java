@@ -19,6 +19,22 @@ import javafx.scene.shape.Polygon;
 import javafx.animation.AnimationTimer;
 import javafx.geometry.Point3D;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
+import javafx.animation.AnimationTimer;
+import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.geometry.Point2D;
+import javafx.scene.Node;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Polygon;
+import javafx.scene.shape.Shape;
+import javafx.stage.Stage;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
@@ -40,18 +56,40 @@ public class main extends Application {
     final int MEDIDAS_Y = 600;
 
     // Declaramos las variables de ejes de la nave y del la llama.
-    int naveCenterX = 10;
-    int naveCurrentSpeedX = 3;
-    int naveCenterY = 30;
-    int naveCurrentSpeedY = 3;
+    int naveCenterX = 400;
+    int naveCenterY = 300;
     
     // Declaramos la variable para la nave.
     Polygon cuerpoNave;
     
     // Declaramos la variable para la "llama/cola" de la nave.
-    Polygon cola;
+    Polygon colaNave;
     
-    // Declaramos el giro de la nave con 90º, usando la teclas izquierda y derecha.
+    // Declaramos las variables de Movimiento.
+    // Angulo de la nave.
+    double anguloNave;
+   
+    // Variable dirección.
+    double dirNave;
+    
+    // Variable dirección en Radianes.
+    double radNave;
+    
+    // Variable dirección seno Angulo.
+    double dirSenNaveX;
+    
+    // Variable dirección coseno Angulo.
+    double dirCosNaveY;
+    
+    // Variable velocidad.
+    double velNaveX;
+    double velNaveY;
+    double velNave;
+    
+    // Variable velocidad giro.
+    double velGiroNave;
+    private Object app;
+    
 
     // Declaramos el metodo del polígono triangulo para nuestra nave color Negro.
     private void crearCuerpoNave() {    
@@ -67,19 +105,19 @@ public class main extends Application {
     
     // Declaramos el metodo del segundo polígono en la parte trasera cuando acelere color Gris.
     private void crearColaNave() {
-        cola = new Polygon();
-        cola.getPoints().addAll(new Double[]{
+        colaNave = new Polygon();
+        colaNave.getPoints().addAll(new Double[]{
             20.5, 10.5,
             10.5, 20.5,
             21.0, 21.0    
         });
-        cola.setFill(Color.GREY);
-        root.getChildren().add(cola);
+        colaNave.setFill(Color.ORANGE);
+        root.getChildren().add(colaNave);
     }
 
     @Override
     public void start(Stage primaryStage) {
- 
+     
         // Declaramos dimensiones de pantalla y color de fondo GRIS y el titulo.
         root = new Pane();
         Scene ventana = new Scene(root, MEDIDAS_X, MEDIDAS_Y, Color.rgb(249, 249, 249));
@@ -88,17 +126,37 @@ public class main extends Application {
         primaryStage.show();
         
         // Mostramos la nave y la cola.
-
-        // Mover la nave a una velocidad constante al acelara pulsando la tecla arriba.
-
-        // Creamos la clase animación para el movimiento .
-
-        // Creamos la clase animación para el movimiento .
-
-        // Creamos la sentencia para el movimiento de la nave.
-
-        // Creamos la sentencia para la activación de la cola de la nave.
-
+        // Llamada al metodo crearCuerpoNave para su muestra en pantalla
+        crearCuerpoNave();
+        
+        // Llama al metodo crearColaNave para su muestra en pantalla
+        crearColaNave();
+        
+        // Movimeinto.
+        root.setOnKeyPressed((KeyEvent event)->{
+            switch(event.getCode()){
+                case RIGHT:
+                    velGiroNave = 2;
+                    break;
+                case LEFT:
+                    velGiroNave = -2;
+                    break;
+                case UP:
+                    // Dirección Nave.
+                    dirSenNaveX = Math.sin(radNave);
+                    dirCosNaveY = Math.cos(radNave);
+                    // Calular Velocidad.
+                    velNaveX += (velNave * 0.2);
+                    velNaveY += (velNave * 0.2);
+                    break;
+            }
+        });
+        
+        // Velocidad del giro.
+        root.setOnKeyReleased((KeyEvent event) -> {
+            velGiroNave = 0;
+        });
+        
         // Declaramos la Animación.
         AnimationTimer animationAsteroide = null;
         animationAsteroide = new AnimationTimer(){
@@ -106,10 +164,16 @@ public class main extends Application {
             @Override
             public void handle(long now){
                 
-        // Llamamos a la variable cuerpoNave para ejecutar el movimiento.
+            // Llamamos a la variable cuerpoNave para ejecutar el movimiento.
             cuerpoNave.setLayoutX(naveCenterX);
             cuerpoNave.setLayoutY(naveCenterY);
-                
+            
+            // Llamamos a la variable colaNave para ejecutar el movimeinto.
+            colaNave.setLayoutX(naveCenterX);
+            colaNave.setLayoutY(naveCenterY);
+            
+            // Comineza la sentencia de los controles. Respondiendo al movimiento.
+            
             } // Final del handle
             
         }; // Final de la Animación.
