@@ -56,8 +56,8 @@ public class main extends Application {
     final int MEDIDAS_Y = 600;
 
     // Declaramos las variables de ejes de la nave y del la llama.
-    int naveCenterX = 400;
-    int naveCenterY = 300;
+    double naveCenterX = 400;
+    double naveCenterY = 300;
     
     // Declaramos la variable para la nave.
     Polygon cuerpoNave;
@@ -132,7 +132,7 @@ public class main extends Application {
         // Llama al metodo crearColaNave para su muestra en pantalla
         crearColaNave();
         
-        // Movimeinto.
+        // Movimiento.
         root.setOnKeyPressed((KeyEvent event)->{
             switch(event.getCode()){
                 case RIGHT:
@@ -156,6 +156,7 @@ public class main extends Application {
         root.setOnKeyReleased((KeyEvent event) -> {
             velGiroNave = 0;
         });
+
         
         // Declaramos la Animación.
         AnimationTimer animationAsteroide = null;
@@ -164,9 +165,35 @@ public class main extends Application {
             @Override
             public void handle(long now){
                 
+            // la dirección es el resto del angulo entre 360.
+            dirNave = anguloNave % 360;
+            radNave = Math.toRadians(dirNave);
+            
+            // giro de la nave.
+            anguloNave += velGiroNave;
+            cuerpoNave.setRotate(dirNave);
+            
+            // Modificamos la posición en relación a la velocidad.
+            naveCenterX += velNaveX;
+            naveCenterY += velNaveY;
+            
+            // hacemos que la pantalla no tenga final.
+            if (naveCenterX >= MEDIDAS_X){
+                naveCenterX = 0;
+            }
+            if (naveCenterY >= MEDIDAS_Y){
+                naveCenterY = 0;
+            }
+            if (naveCenterX < 0){
+                naveCenterX = MEDIDAS_X;
+            }
+            if (naveCenterY < 0){
+                naveCenterY = MEDIDAS_Y;
+            }
             // Llamamos a la variable cuerpoNave para ejecutar el movimiento.
-            cuerpoNave.setLayoutX(naveCenterX);
+            cuerpoNave.setLayoutX(naveCenterX);    
             cuerpoNave.setLayoutY(naveCenterY);
+            
             
             // Llamamos a la variable colaNave para ejecutar el movimeinto.
             colaNave.setLayoutX(naveCenterX);
@@ -177,11 +204,12 @@ public class main extends Application {
             } // Final del handle
             
         }; // Final de la Animación.
-        
-// Ejecución de la Animación.        
-    animationAsteroide.start();
+
+                
+        // Ejecución de la Animación.        
+        animationAsteroide.start();
     
-    };
+    }; // Ceramos el Start de la animación.
 
 } // The end Asteroide Game.
 
