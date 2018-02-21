@@ -65,6 +65,9 @@ public class main extends Application {
     // Declaramos la variable para la "llama/cola" de la nave.
     Polygon colaNave;
     
+    // Declaramos la variable para el asteroide.
+    Polygon asteroide;
+    
     // Declaramos las variables de Movimiento.
     // Angulo de la nave.
     double anguloNave;
@@ -95,9 +98,9 @@ public class main extends Application {
     private void crearCuerpoNave() {    
         cuerpoNave = new Polygon();
         cuerpoNave.getPoints().addAll(new Double[]{
-            0.0, 0.0,
-            20.0, 10.0,
-            10.0, 20.0
+            -10.0, 10.0,
+            30.0, 0.0,
+            -10.0, -10.0
         });
         cuerpoNave.setFill(Color.BLACK);
         root.getChildren().add(cuerpoNave);
@@ -107,13 +110,21 @@ public class main extends Application {
     private void crearColaNave() {
         colaNave = new Polygon();
         colaNave.getPoints().addAll(new Double[]{
-            20.5, 10.5,
-            10.5, 20.5,
-            21.0, 21.0    
+            30.5, 10.5,
+            10.5, 30.5,
+            31.0, 31.0    
         });
         colaNave.setFill(Color.ORANGE);
         root.getChildren().add(colaNave);
     }
+    
+    // Declramos el metodo del tercer polígono para crear un asteroide.
+    /*private void crearAsteroide(){
+        asteroide = new Polygon();
+        asteroide.getPoints().addAll(new Double[]{
+            
+        })
+    }*/
 
     @Override
     public void start(Stage primaryStage) {
@@ -125,15 +136,15 @@ public class main extends Application {
         primaryStage.setScene(ventana);
         primaryStage.show();
         
-        // Mostramos la nave y la cola.
+        // Mostramos crearCuerpoNave y  crearColaNave.
         // Llamada al metodo crearCuerpoNave para su muestra en pantalla
         crearCuerpoNave();
         
         // Llama al metodo crearColaNave para su muestra en pantalla
-        crearColaNave();
+//        crearColaNave();
         
         // Movimiento.
-        root.setOnKeyPressed((KeyEvent event)->{
+        ventana.setOnKeyPressed((KeyEvent event)->{
             switch(event.getCode()){
                 case RIGHT:
                     velGiroNave = 2;
@@ -145,22 +156,22 @@ public class main extends Application {
                     // Dirección Nave.
                     dirSenNaveX = Math.sin(radNave);
                     dirCosNaveY = Math.cos(radNave);
-                    // Calular Velocidad.
-                    velNaveX += (velNave * 0.2);
-                    velNaveY += (velNave * 0.2);
+                    // Calcular Velocidad.
+                    velNaveY += (dirCosNaveY * 0.3);
+                     //System.out.println(dirSenNaveX);
+                    velNaveX += (dirSenNaveX * 0.3);
                     break;
             }
         });
         
-        // Velocidad del giro.
-        root.setOnKeyReleased((KeyEvent event) -> {
-            velGiroNave = 0;
+        // Con esta sentencia se para el movimiento al dejar de pulsar las teclas.
+        ventana.setOnKeyReleased((KeyEvent event) -> {
+            // No se pulsa ninguna tecla.
+            velGiroNave = 0;  
         });
-
         
         // Declaramos la Animación.
-        AnimationTimer animationAsteroide = null;
-        animationAsteroide = new AnimationTimer(){
+        AnimationTimer animationAsteroide = new AnimationTimer(){
             
             @Override
             public void handle(long now){
@@ -175,6 +186,7 @@ public class main extends Application {
             
             // Modificamos la posición en relación a la velocidad.
             naveCenterX += velNaveX;
+                //System.out.println(velNaveX);// Muesta valor en Pantalla.
             naveCenterY += velNaveY;
             
             // hacemos que la pantalla no tenga final.
@@ -196,15 +208,14 @@ public class main extends Application {
             
             
             // Llamamos a la variable colaNave para ejecutar el movimeinto.
-            colaNave.setLayoutX(naveCenterX);
-            colaNave.setLayoutY(naveCenterY);
+//            colaNave.setLayoutX(naveCenterX);
+//            colaNave.setLayoutY(naveCenterY);
             
             // Comineza la sentencia de los controles. Respondiendo al movimiento.
             
             } // Final del handle
             
         }; // Final de la Animación.
-
                 
         // Ejecución de la Animación.        
         animationAsteroide.start();
