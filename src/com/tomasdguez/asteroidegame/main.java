@@ -93,6 +93,12 @@ public class main extends Application {
     double velGiroNave;
     private Object app;
     
+    // Declaramos las variables de Movimiento del Asteroide.
+    // Declaramos los ejes de la bola.
+    int asterCenterX = 10;
+    double asterSpeedX = 1;
+    int asterCenterY = 20;
+    double asterSpeedY = 1;
 
     // Declaramos el metodo del polígono triangulo para nuestra nave color Negro.
     private void crearCuerpoNave() {    
@@ -119,12 +125,19 @@ public class main extends Application {
     }
     
     // Declramos el metodo del tercer polígono para crear un asteroide.
-    /*private void crearAsteroide(){
+    private void crearAsteroide(){
         asteroide = new Polygon();
         asteroide.getPoints().addAll(new Double[]{
-            
-        })
-    }*/
+            -100.0, 80.0,
+            -20.0, 60.0,
+            60.0, 80.0,
+            -20.0, 20.0,
+            -40.0, -80.0,
+            -120.0, 0.0
+        });
+        asteroide.setFill(Color.GREY);
+        root.getChildren().add(asteroide);
+    }
 
     @Override
     public void start(Stage primaryStage) {
@@ -142,6 +155,9 @@ public class main extends Application {
         
         // Llama al metodo crearColaNave para su muestra en pantalla
 //        crearColaNave();
+        
+        // Llama al metodo asteroide para su muestra en pantalla
+        crearAsteroide();
         
         // Movimiento.
         ventana.setOnKeyPressed((KeyEvent event)->{
@@ -202,16 +218,43 @@ public class main extends Application {
             if (naveCenterY < 0){
                 naveCenterY = MEDIDAS_Y;
             }
+            
             // Llamamos a la variable cuerpoNave para ejecutar el movimiento.
             cuerpoNave.setLayoutX(naveCenterX);    
             cuerpoNave.setLayoutY(naveCenterY);
             
             
-            // Llamamos a la variable colaNave para ejecutar el movimeinto.
+            // Llamamos a la variable colaNave para ejecutar el movimiento.
 //            colaNave.setLayoutX(naveCenterX);
 //            colaNave.setLayoutY(naveCenterY);
             
-            // Comineza la sentencia de los controles. Respondiendo al movimiento.
+            // Sentencia Movimiento Asteroide.
+            //Eje X
+            asteroide.setLayoutX(asterCenterX);
+            asterCenterX += asterSpeedX;
+            if (asterCenterX >= MEDIDAS_X){
+                asterCenterX = 0;
+            }
+            if (asterCenterX >= MEDIDAS_X){
+                asterCenterX = MEDIDAS_X;
+            }
+        
+            //Eje Y
+            asteroide.setLayoutY(asterCenterY);
+            asterCenterY += asterSpeedY;
+            if (asterCenterY >= MEDIDAS_Y){
+                asterCenterY = 0;
+            }
+            if (asterCenterY >= MEDIDAS_Y){
+                asterCenterY = MEDIDAS_Y;
+            }
+            
+            // Rotación en su propio eje.
+            asteroide.setRotate(asterCenterX);
+            
+            // Llamamos a la variable asteroide para ejecutar el movimiento.
+            asteroide.setLayoutX(asterCenterX);
+            asteroide.setLayoutY(asterCenterY);
             
             } // Final del handle
             
