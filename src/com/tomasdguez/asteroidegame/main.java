@@ -56,8 +56,10 @@ public class main extends Application {
     final int MEDIDAS_Y = 600;
 
     // Declaramos las variables de ejes de la nave y del la llama.
-    double naveCenterX = 400;
-    double naveCenterY = 300;
+    int naveCenterX = 400;
+    int naveCenterY = 300;
+//  int colaCenterX = 400;
+//  int colaCenterY = 300;
     
     // Declaramos la variable para la nave.
     Polygon cuerpoNave;
@@ -104,9 +106,9 @@ public class main extends Application {
     private void crearCuerpoNave() {    
         cuerpoNave = new Polygon();
         cuerpoNave.getPoints().addAll(new Double[]{
-            -10.0, 10.0,
-            30.0, 0.0,
-            -10.0, -10.0
+           -10.0, 10.0,
+           30.0, 0.0,
+           -10.0, -10.0
         });
         cuerpoNave.setFill(Color.BLACK);
         root.getChildren().add(cuerpoNave);
@@ -138,7 +140,20 @@ public class main extends Application {
         asteroide.setFill(Color.GREY);
         root.getChildren().add(asteroide);
     }
-
+    
+    private void resetGame(){
+            asterCenterX = 10;
+            asterSpeedX = 1;
+            asterCenterY = 20;
+            asterSpeedY = 1;
+            naveCenterX = 400;
+            naveCenterY = 300;
+            // Incio aleatorio del Asteroide.
+            Random random = new Random();
+            asterCenterX = random.nextInt(MEDIDAS_X);
+            asterCenterY = random.nextInt(MEDIDAS_Y);
+    }
+    
     @Override
     public void start(Stage primaryStage) {
      
@@ -170,8 +185,8 @@ public class main extends Application {
                     break;
                 case UP:
                     // Dirección Nave.
-                    dirSenNaveX = Math.sin(radNave);
-                    dirCosNaveY = Math.cos(radNave);
+                    dirSenNaveX = Math.cos(radNave);
+                    dirCosNaveY = Math.sin(radNave);
                     // Calcular Velocidad.
                     velNaveY += (dirCosNaveY * 0.3);
                      //System.out.println(dirSenNaveX);
@@ -186,79 +201,105 @@ public class main extends Application {
             velGiroNave = 0;  
         });
         
+        // Sentencia para la activación de la llama de la nave al acelerar.
+/*        ventana.setOnKeyPressed((KeyEvent event) -> {
+            switch(event.getCode()){
+                case UP:
+                    // Dirección Nave.
+                    dirSenNaveX = Math.sin(radNave);
+                    dirCosNaveY = Math.cos(radNave);
+                    // Caluclo de velocidad.
+                    velNaveY -= (dirCosNaveY * 0.3);
+                    velNaveX -= (dirSenNaveX * 0.3);
+                    break;
+            }
+        });
+*/       
+        
+        // Reinicio del Juego.
+        resetGame();
+        
         // Declaramos la Animación.
-        AnimationTimer animationAsteroide = new AnimationTimer(){
+        AnimationTimer animationAsteroide; // Final de la Animación.
+        animationAsteroide = new AnimationTimer(){
             
             @Override
             public void handle(long now){
                 
-            // la dirección es el resto del angulo entre 360.
-            dirNave = anguloNave % 360;
-            radNave = Math.toRadians(dirNave);
-            
-            // giro de la nave.
-            anguloNave += velGiroNave;
-            cuerpoNave.setRotate(dirNave);
-            
-            // Modificamos la posición en relación a la velocidad.
-            naveCenterX += velNaveX;
+                // la dirección es el resto del angulo entre 360.
+                dirNave = anguloNave % 360;
+                radNave = Math.toRadians(dirNave);
+                
+                // giro de la nave.
+                anguloNave += velGiroNave;
+                cuerpoNave.setRotate(dirNave);
+                
+                // Modificamos la posición en relación a la velocidad.
+                naveCenterX += velNaveX;
                 //System.out.println(velNaveX);// Muesta valor en Pantalla.
-            naveCenterY += velNaveY;
-            
-            // hacemos que la pantalla no tenga final.
-            if (naveCenterX >= MEDIDAS_X){
-                naveCenterX = 0;
-            }
-            if (naveCenterY >= MEDIDAS_Y){
-                naveCenterY = 0;
-            }
-            if (naveCenterX < 0){
-                naveCenterX = MEDIDAS_X;
-            }
-            if (naveCenterY < 0){
-                naveCenterY = MEDIDAS_Y;
-            }
-            
-            // Llamamos a la variable cuerpoNave para ejecutar el movimiento.
-            cuerpoNave.setLayoutX(naveCenterX);    
-            cuerpoNave.setLayoutY(naveCenterY);
-            
-            
-            // Llamamos a la variable colaNave para ejecutar el movimiento.
+                naveCenterY += velNaveY;
+                
+                // hacemos que la pantalla no tenga final.
+                if (naveCenterX >= MEDIDAS_X){
+                    naveCenterX = 0;
+                }
+                if (naveCenterY >= MEDIDAS_Y){
+                    naveCenterY = 0;
+                }
+                if (naveCenterX < 0){
+                    naveCenterX = MEDIDAS_X;
+                }
+                if (naveCenterY < 0){
+                    naveCenterY = MEDIDAS_Y;
+                }
+                
+                // Sentencia de colisión.
+                Shape shapeColision = Shape.intersect(cuerpoNave, asteroide);
+                boolean colisionNave = shapeColision.getBoundsInLocal().isEmpty();
+                if (colisionNave == false){
+                     resetGame();
+                }
+                
+                // Llamamos a la variable cuerpoNave para ejecutar el movimiento.
+                cuerpoNave.setLayoutX(naveCenterX);
+                cuerpoNave.setLayoutY(naveCenterY);
+                
+                
+                // Llamamos a la variable colaNave para ejecutar el movimiento.
 //            colaNave.setLayoutX(naveCenterX);
 //            colaNave.setLayoutY(naveCenterY);
-            
-            // Sentencia Movimiento Asteroide.
-            //Eje X
-            asteroide.setLayoutX(asterCenterX);
-            asterCenterX += asterSpeedX;
-            if (asterCenterX >= MEDIDAS_X){
-                asterCenterX = 0;
-            }
-            if (asterCenterX >= MEDIDAS_X){
-                asterCenterX = MEDIDAS_X;
-            }
-        
-            //Eje Y
-            asteroide.setLayoutY(asterCenterY);
-            asterCenterY += asterSpeedY;
-            if (asterCenterY >= MEDIDAS_Y){
-                asterCenterY = 0;
-            }
-            if (asterCenterY >= MEDIDAS_Y){
-                asterCenterY = MEDIDAS_Y;
-            }
-            
-            // Rotación en su propio eje.
-            asteroide.setRotate(asterCenterX);
-            
-            // Llamamos a la variable asteroide para ejecutar el movimiento.
-            asteroide.setLayoutX(asterCenterX);
-            asteroide.setLayoutY(asterCenterY);
-            
+
+                // Sentencia Movimiento Asteroide.
+                //Eje X
+                asteroide.setLayoutX(asterCenterX);
+                asterCenterX += asterSpeedX;
+                if (asterCenterX >= MEDIDAS_X){
+                    asterCenterX = 0;
+                }
+                if (asterCenterX >= MEDIDAS_X){
+                    asterCenterX = MEDIDAS_X;
+                }
+
+                //Eje Y
+                asteroide.setLayoutY(asterCenterY);
+                asterCenterY += asterSpeedY;
+                if (asterCenterY >= MEDIDAS_Y){
+                    asterCenterY = 0;
+                }
+                if (asterCenterY >= MEDIDAS_Y){
+                    asterCenterY = MEDIDAS_Y;
+                }
+
+                // Rotación en su propio eje.
+                asteroide.setRotate(asterCenterX);
+
+                // Llamamos a la variable asteroide para ejecutar el movimiento.
+                asteroide.setLayoutX(asterCenterX);
+                asteroide.setLayoutY(asterCenterY);
+
             } // Final del handle
             
-        }; // Final de la Animación.
+        };
                 
         // Ejecución de la Animación.        
         animationAsteroide.start();
