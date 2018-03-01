@@ -70,6 +70,13 @@ public class main extends Application {
     // Declaramos la variable para el asteroide.
     Polygon asteroide;
     
+    // Declaramos la variable para la bala.
+    Circle crearBala;
+    
+    //Variable de la bala.
+    int balaCenterX = 400;
+    int balaCenterY = 300;
+    
     // Declaramos las variables de Movimiento.
     // Angulo de la nave.
     double anguloNave;
@@ -141,18 +148,28 @@ public class main extends Application {
         root.getChildren().add(asteroide);
     }
     
+    // Declaramos el metodo de Reinicio del Juego. en caso de colisión.
     private void resetGame(){
             asterCenterX = 10;
             asterSpeedX = 1;
             asterCenterY = 20;
             asterSpeedY = 1;
+            
+            // Posición Central del asteroide al colisionar con el asteroide.
             naveCenterX = 400;
             naveCenterY = 300;
+            
             // Incio aleatorio del Asteroide.
             Random random = new Random();
             asterCenterX = random.nextInt(MEDIDAS_X);
             asterCenterY = random.nextInt(MEDIDAS_Y);
     }
+    
+    // Declaramos el metodo para la Munición ó Bala a disparar.
+    private void crearMunicion(){
+      crearBala = new Circle(balaCenterX, balaCenterY, 2, Color.BLACK);
+      root.getChildren().add(crearBala);
+    }    
     
     @Override
     public void start(Stage primaryStage) {
@@ -173,6 +190,9 @@ public class main extends Application {
         
         // Llama al metodo asteroide para su muestra en pantalla
         crearAsteroide();
+        
+        // LLama al metodo crearMunicion para su muestra en pantalla.
+        crearMunicion();
         
         // Movimiento.
         ventana.setOnKeyPressed((KeyEvent event)->{
@@ -253,11 +273,18 @@ public class main extends Application {
                     naveCenterY = MEDIDAS_Y;
                 }
                 
-                // Sentencia de colisión.
-                Shape shapeColision = Shape.intersect(cuerpoNave, asteroide);
-                boolean colisionNave = shapeColision.getBoundsInLocal().isEmpty();
+                // Sentencia de colisión. Nave Asteroide.
+                Shape colisionNaveAsteroide = Shape.intersect(cuerpoNave, asteroide);
+                boolean colisionNave = colisionNaveAsteroide.getBoundsInLocal().isEmpty();
                 if (colisionNave == false){
                      resetGame();
+                }
+                
+                // Sentencia de colisión. Munición, Asteroide.
+                Shape colisionBalaAsteroide = Shape.intersect(crearBala, asteroide);
+                boolean colisionBala = colisionBalaAsteroide.getBoundsInLocal().isEmpty();
+                if (colisionBala == false){
+                    
                 }
                 
                 // Llamamos a la variable cuerpoNave para ejecutar el movimiento.
