@@ -85,7 +85,8 @@ public class Nave {
     
     // Declaramos el metodo del movimiento de la nave.
     public void moverNave(){
-        // la dirección es el resto del angulo entre 360.
+        
+                // la dirección es el resto del angulo entre 360.
                 dirNave = anguloNave % 360;
                 radNave = Math.toRadians(dirNave);
                 
@@ -93,11 +94,15 @@ public class Nave {
                 anguloNave += velGiroNave;
                 cuerpoNave.setRotate(dirNave);
                 
+                //Posicion de la nave.
+                cuerpoNave.setLayoutX(naveCenterX);
+                cuerpoNave.setLayoutY(naveCenterY);    
+                
                 // Modificamos la posición en relación a la velocidad.
                 naveCenterX += velNaveX;
-                //System.out.println(velNaveX);// Muesta valor en Pantalla.
+                        //System.out.println(velNaveX);// Muesta valor en Pantalla.
                 naveCenterY += velNaveY;
-                
+
                 // hacemos que la pantalla no tenga final.
                 if (naveCenterX >= MEDIDAS_X){
                     naveCenterX = 0;
@@ -111,5 +116,6 @@ public class Nave {
                 if (naveCenterY < 0){
                     naveCenterY = MEDIDAS_Y;
                 }
+           
     }
 }

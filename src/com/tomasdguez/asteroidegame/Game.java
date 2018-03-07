@@ -65,36 +65,23 @@ public class Game extends Application {
         primaryStage.setScene(ventana);
         primaryStage.show();
         
-        //Estilos CSS Java FX
-        ventana.setOnKeyPressed((KeyEvent event)->{
-            switch(event.getCode()){
-                case Q:
-                    ventana.getStylesheets().add("resources/css/style1.css");
-                    break;
-                case W:
-                    ventana.getStylesheets().clear();
-                    ventana.getStylesheets().add("resources/css/style2.css");
-                    break;
-                case E:
-                    ventana.getStylesheets().clear();
-                    ventana.getStylesheets().add("resources/css/style3.css");
-                    break;
-            }
-    });        
-        // Mostramos crearCuerpoNave y  crearColaNave.
         // Llamada al metodo crearCuerpoNave para su muestra en pantalla
-//        crearCuerpoNave();
+        Nave miNave = new Nave();
+        miNave.crearCuerpoNave();
         
         // Llama al metodo crearColaNave para su muestra en pantalla
-//        crearColaNave();
+        Nave colaNave = new Nave();
+        colaNave.crearColaNave();
         
         // Llama al metodo asteroide para su muestra en pantalla
-//        crearAsteroide();
+        Asteroide miAsteroide = new Asteroide();
+        miAsteroide.crearAsteroide();
         
         // LLama al metodo crearMunicion para su muestra en pantalla.
-//        crearMunicion();
+        Municion crearBala = new Municion();
+        crearBala.crearMunicion();
        
-        // Sentencia para la activación de la llama de la nave al acelerar.
+        // Sentencia para la activación de la cola o llama de la nave al acelerar.
 /*        ventana.setOnKeyPressed((KeyEvent event) -> {
             switch(event.getCode()){
                 case UP:
@@ -116,7 +103,8 @@ public class Game extends Application {
            });
        
         // Reinicio del Juego.
-//        resetGame();
+        ResetGame resetGame = new ResetGame();
+        resetGame.resetGame();
         
         // Declaramos la Animación.
         AnimationTimer animationAsteroide; // Final de la Animación.
@@ -124,12 +112,50 @@ public class Game extends Application {
             
             @Override
             public void handle(long now){
+                    
+                    //Estilos CSS en Java FX para modificar fondos, etcetera.
+                    ventana.setOnKeyPressed((KeyEvent event)->{
+                        switch(event.getCode()){
+                            case Q:
+                                ventana.getStylesheets().add("resources/css/style1.css");
+                                break;
+                            case W:
+                                ventana.getStylesheets().clear();
+                                ventana.getStylesheets().add("resources/css/style2.css");
+                                break;
+                            case E:
+                                ventana.getStylesheets().clear();
+                                ventana.getStylesheets().add("resources/css/style3.css");
+                                break;
+                        }
+                    });
+                    
+                    // Movimiento para la nave.
+                    ventana.setOnKeyPressed((KeyEvent event)->{
+                        switch(event.getCode()){
+                            case RIGHT:
+                                velGiroNave = 2;
+                                break;
+                            case LEFT:
+                                velGiroNave = -2;
+                                break;
+                            case UP:
+                                // Dirección Nave.
+                                dirSenNaveX = Math.cos(radNave);
+                                dirCosNaveY = Math.sin(radNave);
+                                // Calcular Velocidad.
+                                velNaveY += (dirCosNaveY * 0.3);
+                                 //System.out.println(dirSenNaveX);
+                                velNaveX += (dirSenNaveX * 0.3);
+                                break;
+                        }
+                    });
 
 //                // Sentencia de colisión. Nave Asteroide.
 //                Shape colisionNaveAsteroide = Shape.intersect(cuerpoNave, asteroide);
 //                boolean colisionNave = colisionNaveAsteroide.getBoundsInLocal().isEmpty();
 //                if (colisionNave == false){
-//                     resetGame();
+//                    resetGame;
 //                }
 //                
 //                // Sentencia de colisión. Munición, Asteroide.
@@ -139,10 +165,9 @@ public class Game extends Application {
 //                    
 //                }
 //                
-                // Llamamos a la variable cuerpoNave para ejecutar el movimiento.
-//                cuerpoNave.setLayoutX(naveCenterX);
-//                cuerpoNave.setLayoutY(naveCenterY);
-                
+                //Llamamos a la variable cuerpoNave para ejecutar el movimiento.
+                miNave.moverNave();
+
                 
                 // Llamamos a la variable colaNave para ejecutar el movimiento.
 //            colaNave.setLayoutX(naveCenterX);
