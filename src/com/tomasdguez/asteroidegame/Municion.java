@@ -32,7 +32,6 @@ public class Municion {
     // Declaramos el metodo para la Munición ó Bala a disparar.
     public void crearMunicion(){
       crearBala = new Circle(balaCenterX, balaCenterY, 2, Color.BLACK);
-      root.getChildren().add(crearBala);
     }     
     
 }

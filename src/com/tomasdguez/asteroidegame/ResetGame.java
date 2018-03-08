@@ -13,9 +13,7 @@ import javafx.scene.layout.Pane;
  * @author tomasdg
  */
 public class ResetGame {
-    // Creamos la variable para la Pantalla de root.
-    Pane root;
-    
+  
     // Declaramos las constantes de la dimensión de la ventana en pixel.
     final int MEDIDAS_X = 800;
     final int MEDIDAS_Y = 600;

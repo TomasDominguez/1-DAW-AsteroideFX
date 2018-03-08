@@ -54,7 +54,11 @@ public class Game extends Application {
     // Declaramos las constantes de la dimensión de la ventana en pixel.
     final int MEDIDAS_X = 800;
     final int MEDIDAS_Y = 600;
-
+    
+    public void resetGame(){
+       
+    }
+    
     @Override
     public void start(Stage primaryStage) {
      
@@ -68,44 +72,34 @@ public class Game extends Application {
         // Llamada al metodo crearCuerpoNave para su muestra en pantalla
         Nave miNave = new Nave();
         miNave.crearCuerpoNave();
+        root.getChildren().add(miNave.cuerpoNave);
         
-        // Llama al metodo crearColaNave para su muestra en pantalla
-        Nave colaNave = new Nave();
-        colaNave.crearColaNave();
-        
+//        // Llama al metodo crearColaNave para su muestra en pantalla
+//        Nave colaNave = new Nave();
+//        colaNave.crearColaNave();
+//        root.getChildren().add(colaNave.colaNave);
+       
         // Llama al metodo asteroide para su muestra en pantalla
         Asteroide miAsteroide = new Asteroide();
         miAsteroide.crearAsteroide();
+        root.getChildren().add(miAsteroide.asteroide);
         
         // LLama al metodo crearMunicion para su muestra en pantalla.
         Municion crearBala = new Municion();
         crearBala.crearMunicion();
-       
-        // Sentencia para la activación de la cola o llama de la nave al acelerar.
-/*        ventana.setOnKeyPressed((KeyEvent event) -> {
-            switch(event.getCode()){
-                case UP:
-                    // Dirección Nave.
-                    dirSenNaveX = Math.cos(radNave);
-                    dirCosNaveY = Math.sin(radNave);
-                    // Caluclo de velocidad.
-                    velNaveY += (dirCosNaveY * 0.3);
-                    velNaveX += (dirSenNaveX * 0.3);
-                    break;
-            }
-        });
-*/       
+        root.getChildren().add(crearBala.crearBala);
+     
         // Sentencia para el disparo.
         ventana.setOnKeyPressed((KeyEvent event) ->{
               switch(event.getCode()){
                   case SPACE:
               }
            });
-       
-        // Reinicio del Juego.
-        ResetGame resetGame = new ResetGame();
-        resetGame.resetGame();
-        
+                
+//        // Reinicio del Juego.
+//        ResetGame resetGame = new ResetGame();
+//        resetGame.resetGame();
+//        
         // Declaramos la Animación.
         AnimationTimer animationAsteroide; // Final de la Animación.
         animationAsteroide = new AnimationTimer(){
@@ -130,52 +124,44 @@ public class Game extends Application {
                         }
                     });
                     
-                    // Movimiento para la nave.
-                    ventana.setOnKeyPressed((KeyEvent event)->{
-                        switch(event.getCode()){
-                            case RIGHT:
-                                velGiroNave = 2;
-                                break;
-                            case LEFT:
-                                velGiroNave = -2;
-                                break;
-                            case UP:
-                                // Dirección Nave.
-                                dirSenNaveX = Math.cos(radNave);
-                                dirCosNaveY = Math.sin(radNave);
-                                // Calcular Velocidad.
-                                velNaveY += (dirCosNaveY * 0.3);
-                                 //System.out.println(dirSenNaveX);
-                                velNaveX += (dirSenNaveX * 0.3);
-                                break;
-                        }
-                    });
-
-//                // Sentencia de colisión. Nave Asteroide.
-//                Shape colisionNaveAsteroide = Shape.intersect(cuerpoNave, asteroide);
-//                boolean colisionNave = colisionNaveAsteroide.getBoundsInLocal().isEmpty();
-//                if (colisionNave == false){
-//                    resetGame;
-//                }
-//                
-//                // Sentencia de colisión. Munición, Asteroide.
-//                Shape colisionBalaAsteroide = Shape.intersect(crearBala, asteroide);
-//                boolean colisionBala = colisionBalaAsteroide.getBoundsInLocal().isEmpty();
-//                if (colisionBala == false){
-//                    
-//                }
-//                
+                // Movimiento para la nave.
+                ventana.setOnKeyPressed((KeyEvent event)->{
+                    switch(event.getCode()){
+                        case RIGHT:
+                            miNave.giroDerecha();
+                            break;
+                        case LEFT:
+                            miNave.giroIzquierda();
+                            break;
+                        case UP:
+                            miNave.acelerarNave();
+                            break;
+                    }
+                });
+                
+                // Sentencia de colisión. Nave Asteroide.
+                Shape colisionNaveAsteroide = Shape.intersect( miNave.cuerpoNave , miAsteroide.asteroide);
+                boolean colisionNave = colisionNaveAsteroide.getBoundsInLocal().isEmpty();
+                if (colisionNave == false){
+                   // resetGame.resetGame();
+                }
+                
+                // Sentencia de colisión. Munición, Asteroide.
+                Shape colisionBalaAsteroide = Shape.intersect(crearBala.crearBala, miAsteroide.asteroide);
+                boolean colisionBala = colisionBalaAsteroide.getBoundsInLocal().isEmpty();
+                if (colisionBala == false){
+                    
+                }
+             
                 //Llamamos a la variable cuerpoNave para ejecutar el movimiento.
                 miNave.moverNave();
 
                 
                 // Llamamos a la variable colaNave para ejecutar el movimiento.
-//            colaNave.setLayoutX(naveCenterX);
-//            colaNave.setLayoutY(naveCenterY);
+                //colaNave.acelerarColaNave();
 
                 // Llamamos a la variable asteroide para ejecutar el movimiento.
-//                asteroide.setLayoutX(asterCenterX);
-//                asteroide.setLayoutY(asterCenterY);
+                miAsteroide.movimientoAsteroide();
 
             } // Final del handle
             

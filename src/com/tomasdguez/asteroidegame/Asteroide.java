@@ -5,6 +5,7 @@
  */
 package com.tomasdguez.asteroidegame;
 
+import java.util.Random;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
@@ -14,8 +15,6 @@ import javafx.scene.shape.Polygon;
  * @author tomasdg
  */
 public class Asteroide {
-    //Creamos la variable para la Pantalla de root.
-    Pane root;
     
     // Declaramos las constantes de la dimensión de la ventana en pixel.
     final int MEDIDAS_X = 800;
@@ -45,7 +44,6 @@ public class Asteroide {
             -120.0, 0.0
         });
         asteroide.setFill(Color.GREY);
-        root.getChildren().add(asteroide);
     }
     
     public void movimientoAsteroide(){
@@ -72,6 +70,20 @@ public class Asteroide {
 
                 // Rotación en su propio eje.
                 asteroide.setRotate(asterCenterX);
-    };           
+    };        
     
+    //Declaramos el metodo para resetGame del asteroide.
+    public void resetAsteroide(){
+        asterCenterX = 10;
+        asterSpeedX = 1;
+        asterCenterY = 20;
+        asterCenterY = 1;
+    }
+    
+    // Declaramos el motodo para posición aleatoria tras la colision.
+    public void randomAsteroide(){
+        Random random = new Random();
+        asterCenterX = random.nextInt(MEDIDAS_X);
+        asterCenterY = random.nextInt(MEDIDAS_Y);
+    }
 }

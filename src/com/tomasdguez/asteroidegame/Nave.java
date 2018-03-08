@@ -18,10 +18,7 @@ public class Nave {
     // Declaramos las constantes de la dimensión de la ventana en pixel.
     final int MEDIDAS_X = 800;
     final int MEDIDAS_Y = 600;
-    
-    // Creamos la variable para la Pantalla de root.
-    Pane root;
-    
+
     // Declaramos las variables de ejes de la nave y del la llama.
     int naveCenterX = 400;
     int naveCenterY = 300;
@@ -68,7 +65,6 @@ public class Nave {
            -10.0, -10.0
         });
         cuerpoNave.setFill(Color.BLACK);
-        root.getChildren().add(cuerpoNave);
     }
     
     // Declaramos el metodo del segundo polígono en la parte trasera cuando acelere color Gris.
@@ -80,7 +76,6 @@ public class Nave {
             31.0, 31.0    
         });
         colaNave.setFill(Color.ORANGE);
-        root.getChildren().add(colaNave);
     }
     
     // Declaramos el metodo del movimiento de la nave.
@@ -117,5 +112,79 @@ public class Nave {
                     naveCenterY = MEDIDAS_Y;
                 }
            
+    }
+    
+    // Declaramos el metodo para el movimiento de aceleración de la nave.
+    public void acelerarNave() {
+                // Dirección Nave.
+                dirSenNaveX = Math.cos(radNave);
+                dirCosNaveY = Math.sin(radNave);
+                // Calcular Velocidad.
+                velNaveY += (dirCosNaveY * 0.3);
+                 //System.out.println(dirSenNaveX);
+                velNaveX += (dirSenNaveX * 0.3);
+    }
+    
+    // Declaramos el metodo para el giro de derechas de la nave.
+    public void giroDerecha(){
+                velGiroNave = 2;
+    }
+    
+    // Declaramos el metodo para el giro de izquierdas de la nave.
+    public void giroIzquierda(){
+                velGiroNave = -2;
+    }
+    
+    // Declaramos el metodo del movimiento de la cola de la nave.
+    public void moverColaNave(){
+        
+                // la dirección es el resto del angulo entre 360.
+                dirNave = anguloNave % 360;
+                radNave = Math.toRadians(dirNave);
+                
+                // giro de la nave.
+                anguloNave += velGiroNave;
+                cuerpoNave.setRotate(dirNave);
+                
+                //Posicion de la nave.
+                cuerpoNave.setLayoutX(naveCenterX);
+                cuerpoNave.setLayoutY(naveCenterY);    
+                
+                // Modificamos la posición en relación a la velocidad.
+                naveCenterX += velNaveX;
+                        //System.out.println(velNaveX);// Muesta valor en Pantalla.
+                naveCenterY += velNaveY;
+
+                // hacemos que la pantalla no tenga final.
+                if (naveCenterX >= MEDIDAS_X){
+                    naveCenterX = 0;
+                }
+                if (naveCenterY >= MEDIDAS_Y){
+                    naveCenterY = 0;
+                }
+                if (naveCenterX < 0){
+                    naveCenterX = MEDIDAS_X;
+                }
+                if (naveCenterY < 0){
+                    naveCenterY = MEDIDAS_Y;
+                }
+           
+    }
+    
+    // Declaramos el metodo para el movimiento de aceleración de la nave.
+    public void acelerarColaNave() {
+                // Dirección Nave.
+                dirSenNaveX = Math.cos(radNave);
+                dirCosNaveY = Math.sin(radNave);
+                // Calcular Velocidad.
+                velNaveY += (dirCosNaveY * 0.3);
+                 //System.out.println(dirSenNaveX);
+                velNaveX += (dirSenNaveX * 0.3);
+    }
+    
+    // Declaramos el metodo para la poscion central de la nave. (ResetGame).
+    public void posicionCentral(){
+                naveCenterX = 400;
+                naveCenterY = 300;
     }
 }
