@@ -55,10 +55,6 @@ public class Game extends Application {
     final int MEDIDAS_X = 800;
     final int MEDIDAS_Y = 600;
     
-    public void resetGame(){
-       
-    }
-    
     @Override
     public void start(Stage primaryStage) {
      
@@ -88,7 +84,7 @@ public class Game extends Application {
         Municion crearBala = new Municion();
         crearBala.crearMunicion();
         root.getChildren().add(crearBala.crearBala);
-     
+        
         // Sentencia para el disparo.
         ventana.setOnKeyPressed((KeyEvent event) ->{
               switch(event.getCode()){
@@ -96,54 +92,52 @@ public class Game extends Application {
               }
            });
                 
-//        // Reinicio del Juego.
-//        ResetGame resetGame = new ResetGame();
-//        resetGame.resetGame();
-//        
+        // Movimiento para la nave.
+        ventana.setOnKeyPressed((KeyEvent event)->{
+            switch(event.getCode()){
+                case RIGHT:
+                    miNave.giroDerecha();
+                    break;
+                case LEFT:
+                    miNave.giroIzquierda();
+                    break;
+                case UP:
+                    miNave.acelerarNave();
+                    break;
+                case Q:
+                    ventana.getStylesheets().add("resources/css/style1.css");
+                    break;
+                case W:
+                    ventana.getStylesheets().clear();
+                    ventana.getStylesheets().add("resources/css/style2.css");
+                    break;
+                case E:
+                    ventana.getStylesheets().clear();
+                    ventana.getStylesheets().add("resources/css/style3.css");
+                    break;
+            }
+        });
+        // Con esta sentencia se para el movimiento al dejar de pulsar las teclas.
+        ventana.setOnKeyReleased((KeyEvent event) -> {
+            // No se pulsa ninguna tecla.
+            miNave.stopGiroNave();
+        });
+        
+                 
         // Declaramos la Animación.
         AnimationTimer animationAsteroide; // Final de la Animación.
         animationAsteroide = new AnimationTimer(){
             
             @Override
             public void handle(long now){
-                    
-                    //Estilos CSS en Java FX para modificar fondos, etcetera.
-                    ventana.setOnKeyPressed((KeyEvent event)->{
-                        switch(event.getCode()){
-                            case Q:
-                                ventana.getStylesheets().add("resources/css/style1.css");
-                                break;
-                            case W:
-                                ventana.getStylesheets().clear();
-                                ventana.getStylesheets().add("resources/css/style2.css");
-                                break;
-                            case E:
-                                ventana.getStylesheets().clear();
-                                ventana.getStylesheets().add("resources/css/style3.css");
-                                break;
-                        }
-                    });
-                    
-                // Movimiento para la nave.
-                ventana.setOnKeyPressed((KeyEvent event)->{
-                    switch(event.getCode()){
-                        case RIGHT:
-                            miNave.giroDerecha();
-                            break;
-                        case LEFT:
-                            miNave.giroIzquierda();
-                            break;
-                        case UP:
-                            miNave.acelerarNave();
-                            break;
-                    }
-                });
                 
                 // Sentencia de colisión. Nave Asteroide.
                 Shape colisionNaveAsteroide = Shape.intersect( miNave.cuerpoNave , miAsteroide.asteroide);
                 boolean colisionNave = colisionNaveAsteroide.getBoundsInLocal().isEmpty();
                 if (colisionNave == false){
-                   // resetGame.resetGame();
+                        miNave.posicionCentral();
+                        miAsteroide.posicionAsteroide();
+                        miAsteroide.randomAsteroide(); 
                 }
                 
                 // Sentencia de colisión. Munición, Asteroide.

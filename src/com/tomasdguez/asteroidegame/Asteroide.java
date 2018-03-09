@@ -73,13 +73,14 @@ public class Asteroide {
     };        
     
     //Declaramos el metodo para resetGame del asteroide.
-    public void resetAsteroide(){
+    // Declaramos el metodo para la posición del asteroide.
+    public void posicionAsteroide(){
         asterCenterX = 10;
         asterSpeedX = 1;
         asterCenterY = 20;
         asterCenterY = 1;
-    }
-    
+    };
+
     // Declaramos el motodo para posición aleatoria tras la colision.
     public void randomAsteroide(){
         Random random = new Random();

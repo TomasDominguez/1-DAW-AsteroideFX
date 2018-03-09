@@ -135,6 +135,11 @@ public class Nave {
                 velGiroNave = -2;
     }
     
+    // Declaramos el metodo de para de giro de la nave.
+    public void stopGiroNave(){
+        velGiroNave = 0;
+    }
+    
     // Declaramos el metodo del movimiento de la cola de la nave.
     public void moverColaNave(){
         
@@ -186,5 +191,6 @@ public class Nave {
     public void posicionCentral(){
                 naveCenterX = 400;
                 naveCenterY = 300;
+                velNave = 0;
     }
 }
