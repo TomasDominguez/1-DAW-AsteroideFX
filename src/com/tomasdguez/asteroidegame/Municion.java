@@ -23,15 +23,70 @@ public class Municion {
     final int MEDIDAS_Y = 600;
 
     // Declaramos la variable para la bala.
-    Circle crearBala;
+    Circle circuloBala;
         
     //Variable de la bala.
     int balaCenterX = 400;
     int balaCenterY = 300;
+    
+    // Variable de la velocidad de la bala
+    double velMunicion = 10;
+    double velocidadBalaX = 0;
+    double velocidadBalaY = 0;
+    
+    // Variable del angulo de la bala.
+    double angulo = 0;
+    
+    // Variable posición de la Bala.
+    double posicionX = 0;
+    double posicionY = 0;
+    
+    // Variable dirección seno Angulo.
+    double dirSenMuniX;
+    
+    // Variable dirección coseno Angulo.
+    double dirCosMuniY;
+    
+    double posX;
+    double posY;
+    double velocidadX;
+    double velocidadY;
             
     // Declaramos el metodo para la Munición ó Bala a disparar.
     public void crearMunicion(){
-      crearBala = new Circle(balaCenterX, balaCenterY, 2, Color.BLACK);
+      circuloBala = new Circle(balaCenterX, balaCenterY, 2, Color.BLACK);
+      dirSenMuniX=Math.sin(Math.toRadians(angulo));
+      dirCosMuniY=Math.cos(Math.toRadians(angulo))*-1;
+      posicionX=posX;
+      posicionY=posY;
+      velocidadBalaX= velocidadX+velMunicion*dirSenMuniX;
+      velocidadBalaY= velocidadY+velMunicion*dirCosMuniY;
     }     
     
+    // Declaramaos el metodo para el movimiento de la Bala al disparar.
+    public void moverBala(){
+        circuloBala.setLayoutX(posX);
+        circuloBala.setLayoutY(posY);
+        posX=posX+velMunicion;
+        posY=posY+velMunicion;
+        if (posX > root.getWidth()){
+                posX=0;
+            }
+            if (posX < 0){
+                posX=root.getWidth();
+            }
+            if (posY > root.getHeight()){
+                posY=0;
+            }
+            if (posY < 0){
+                posY=root.getHeight();
+            }
+    }
+    public double getPosX() {
+        return this.posX;
+    }
+    public double getPosY() {
+        return this.posY;
+    }
+
 }

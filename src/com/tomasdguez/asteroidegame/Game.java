@@ -83,7 +83,7 @@ public class Game extends Application {
         // LLama al metodo crearMunicion para su muestra en pantalla.
         Municion crearBala = new Municion();
         crearBala.crearMunicion();
-        root.getChildren().add(crearBala.crearBala);
+        root.getChildren().add(crearBala.circuloBala);
         
         // Sentencia para el disparo.
         ventana.setOnKeyPressed((KeyEvent event) ->{
@@ -115,6 +115,9 @@ public class Game extends Application {
                     ventana.getStylesheets().clear();
                     ventana.getStylesheets().add("resources/css/style3.css");
                     break;
+                case SPACE:
+                    crearBala.moverBala();
+                    break;
             }
         });
         // Con esta sentencia se para el movimiento al dejar de pulsar las teclas.
@@ -141,10 +144,11 @@ public class Game extends Application {
                 }
                 
                 // Sentencia de colisión. Munición, Asteroide.
-                Shape colisionBalaAsteroide = Shape.intersect(crearBala.crearBala, miAsteroide.asteroide);
+                Shape colisionBalaAsteroide = Shape.intersect(crearBala.circuloBala, miAsteroide.asteroide);
                 boolean colisionBala = colisionBalaAsteroide.getBoundsInLocal().isEmpty();
                 if (colisionBala == false){
-                    
+                    miAsteroide.crearAsteroide();
+                    crearBala.crearMunicion();
                 }
              
                 //Llamamos a la variable cuerpoNave para ejecutar el movimiento.
