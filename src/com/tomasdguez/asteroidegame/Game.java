@@ -147,8 +147,10 @@ public class Game extends Application {
                 Shape colisionBalaAsteroide = Shape.intersect(crearBala.circuloBala, miAsteroide.asteroide);
                 boolean colisionBala = colisionBalaAsteroide.getBoundsInLocal().isEmpty();
                 if (colisionBala == false){
-                    miAsteroide.crearAsteroide();
-                    crearBala.crearMunicion();
+                        miAsteroide.posicionAsteroide();
+                        miAsteroide.randomAsteroide();
+                        crearBala.crearMunicion();
+                        crearBala.resetBala();
                 }
              
                 //Llamamos a la variable cuerpoNave para ejecutar el movimiento.

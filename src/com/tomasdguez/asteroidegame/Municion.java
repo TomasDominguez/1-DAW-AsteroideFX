@@ -82,11 +82,9 @@ public class Municion {
                 posY=root.getHeight();
             }
     }
-    public double getPosX() {
-        return this.posX;
+    // Declaramos el metodo para la poscion central del asteroide con la bala.. (ResetGame).
+    public void resetBala(){
+                balaCenterX = 400;
+                balaCenterY = 300;
     }
-    public double getPosY() {
-        return this.posY;
-    }
-
-}
+}// Fin de la clase Munición.
