@@ -193,4 +193,9 @@ public class Nave {
                 naveCenterY = 300;
                 velNave = 0;
     }
+    
+    // Declaramos el metodo para el anuglo de la bala.
+    public double anguloNaveBala(){
+        return cuerpoNave.getRotate();
+    }
 }

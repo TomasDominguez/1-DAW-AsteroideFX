@@ -56,6 +56,8 @@ public class Game extends Application {
     final int MEDIDAS_X = 800;
     final int MEDIDAS_Y = 600;
     
+    public static Nave miNave = new Nave();
+    
     @Override
     public void start(Stage primaryStage) {
      
@@ -67,7 +69,6 @@ public class Game extends Application {
         primaryStage.show();
         
         // Llamada al metodo crearCuerpoNave para su muestra en pantalla
-        Nave miNave = new Nave();
         miNave.crearCuerpoNave();
         root.getChildren().add(miNave.cuerpoNave);
         
@@ -156,7 +157,6 @@ public class Game extends Application {
              
                 //Llamamos a la variable cuerpoNave para ejecutar el movimiento.
                 miNave.moverNave();
-
                 
                 // Llamamos a la variable colaNave para ejecutar el movimiento.
                 //colaNave.acelerarColaNave();
@@ -166,7 +166,7 @@ public class Game extends Application {
 
             } // Final del handle
             
-        };
+        };// Cierre del Animation Timer
 
         // Ejecución de la Animación.        
         animationAsteroide.start();

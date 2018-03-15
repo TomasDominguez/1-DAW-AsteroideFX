@@ -55,12 +55,12 @@ public class Municion {
     // Declaramos el metodo para la Munición ó Bala a disparar.
     public void crearMunicion(){
       circuloBala = new Circle(balaCenterX, balaCenterY, 2, Color.BLACK);
-      dirSenMuniX=Math.sin(Math.toRadians(angulo));
-      dirCosMuniY=Math.cos(Math.toRadians(angulo))*-1;
+      dirSenMuniX=Math.sin(Math.toRadians(Game.miNave.anguloNaveBala()));
+      dirCosMuniY=Math.cos(Math.toRadians(Game.miNave.anguloNaveBala()));
       posicionX=posX;
       posicionY=posY;
-      velocidadBalaX= velocidadX+velMunicion*dirSenMuniX;
-      velocidadBalaY= velocidadY+velMunicion*dirCosMuniY;
+     // velocidadBalaX= velocidadX+velMunicion*dirSenMuniX;
+      //velocidadBalaY= velocidadY+velMunicion*dirCosMuniY;
     }     
     
     // Declaramaos el metodo para el movimiento de la Bala al disparar.
