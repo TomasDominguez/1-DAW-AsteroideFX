@@ -82,7 +82,7 @@ public class Municion {
     }
     // Declaramos el metodo para la posición centrla de la bala. (ResetGame).
     public void resetBala(){
-                balaCenterX = 400;
-                balaCenterY = 300;
+        balaCenterX = 400;
+        balaCenterY = 300;
     }
 }// Fin de la clase Munición.

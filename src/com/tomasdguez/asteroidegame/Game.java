@@ -26,12 +26,11 @@ import javafx.scene.shape.Shape;
  */
 public class Game extends Application {
 
-    // Creamos la variable para la Pantalla de root.
-    public static Pane root = new Pane();
-    
     // Declaramos las constantes de la dimensión de la ventana en pixel.
     final int MEDIDAS_X = 800;
     final int MEDIDAS_Y = 600;
+
+    public static Pane root = new Pane();
     
     public static Nave miNave = new Nave();
     
@@ -80,7 +79,6 @@ public class Game extends Application {
                 case SPACE:
                     bala.bala();
                     break;
-                    
                 // Estilos CSS.
                 case F1:
                     ventana.getStylesheets().clear();
@@ -127,7 +125,7 @@ public class Game extends Application {
                         bala.bala();
                         bala.resetBala();
                 }
-             
+                
                 //Llamamos a la variable cuerpoNave para ejecutar el movimiento.
                 miNave.moverNave();
                 
