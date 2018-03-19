@@ -6,7 +6,6 @@
 package com.tomasdguez.asteroidegame;
 
 import java.util.Random;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 
@@ -48,28 +47,28 @@ public class Asteroide {
     
     public void movimientoAsteroide(){
     // Sentencia Movimiento Asteroide.
-                //Eje X
-                asteroide.setLayoutX(asterCenterX);
-                asterCenterX += asterSpeedX;
-                if (asterCenterX >= MEDIDAS_X){
-                    asterCenterX = 0;
-                }
-                if (asterCenterX >= MEDIDAS_X){
-                    asterCenterX = MEDIDAS_X;
-                }
+        //Eje X
+        asteroide.setLayoutX(asterCenterX);
+        asterCenterX += asterSpeedX;
+        if (asterCenterX >= MEDIDAS_X){
+            asterCenterX = 0;
+        }
+        if (asterCenterX >= MEDIDAS_X){
+            asterCenterX = MEDIDAS_X;
+        }
 
-                //Eje Y
-                asteroide.setLayoutY(asterCenterY);
-                asterCenterY += asterSpeedY;
-                if (asterCenterY >= MEDIDAS_Y){
-                    asterCenterY = 0;
-                }
-                if (asterCenterY >= MEDIDAS_Y){
-                    asterCenterY = MEDIDAS_Y;
-                }
+        //Eje Y
+        asteroide.setLayoutY(asterCenterY);
+        asterCenterY += asterSpeedY;
+        if (asterCenterY >= MEDIDAS_Y){
+            asterCenterY = 0;
+        }
+        if (asterCenterY >= MEDIDAS_Y){
+            asterCenterY = MEDIDAS_Y;
+        }
 
-                // Rotación en su propio eje.
-                asteroide.setRotate(asterCenterX);
+        // Rotación en su propio eje.
+        asteroide.setRotate(asterCenterX);
     };        
     
     //Declaramos el metodo para resetGame del asteroide.

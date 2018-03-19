@@ -5,7 +5,6 @@
  */
 package com.tomasdguez.asteroidegame;
 
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
@@ -53,13 +52,13 @@ public class Municion {
             
     // Declaramos el metodo para la Munición ó Bala a disparar.
     public void bala(){
-      circuloBala = new Circle(balaCenterX, balaCenterY, 2, Color.BLACK);
-      dirSenMuniX=Math.sin(Math.toRadians(Game.miNave.anguloNaveBala()));
-      dirCosMuniY=Math.cos(Math.toRadians(Game.miNave.anguloNaveBala()));
-      posicionX=posX;
-      posicionY=posY;
-     // velocidadBalaX= velocidadX+velMunicion*dirSenMuniX;
-     //velocidadBalaY= velocidadY+velMunicion*dirCosMuniY;
+        circuloBala = new Circle(balaCenterX, balaCenterY, 2, Color.BLACK);
+        dirSenMuniX=Math.sin(Math.toRadians(Game.miNave.anguloNaveBala()));
+        dirCosMuniY=Math.cos(Math.toRadians(Game.miNave.anguloNaveBala()));
+        posicionX=posX;
+        posicionY=posY;
+         // velocidadBalaX= velocidadX+velMunicion*dirSenMuniX;
+         //velocidadBalaY= velocidadY+velMunicion*dirCosMuniY;
     }  
     
     // Declaramaos el metodo para el movimiento de la Bala al disparar.
