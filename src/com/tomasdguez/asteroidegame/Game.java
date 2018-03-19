@@ -111,19 +111,19 @@ public class Game extends Application {
                 Shape colisionNaveAsteroide = Shape.intersect( miNave.cuerpoNave , miAsteroide.asteroide);
                 boolean colisionNave = colisionNaveAsteroide.getBoundsInLocal().isEmpty();
                 if (colisionNave == false){
-                        miNave.posicionCentral();
-                        miAsteroide.posicionAsteroide();
-                        miAsteroide.randomAsteroide(); 
+                    miNave.posicionCentral();
+                    miAsteroide.posicionAsteroide();
+                    miAsteroide.randomAsteroide(); 
                 }
                 
                 // Sentencia de colisión. Munición, Asteroide.
                 Shape colisionBalaAsteroide = Shape.intersect(bala.circuloBala, miAsteroide.asteroide);
                 boolean colisionBala = colisionBalaAsteroide.getBoundsInLocal().isEmpty();
                 if (colisionBala == false){
-                        miAsteroide.posicionAsteroide();
-                        miAsteroide.randomAsteroide();
-                        bala.bala();
-                        bala.resetBala();
+                    miAsteroide.posicionAsteroide();
+                    miAsteroide.randomAsteroide();
+                    bala.bala();
+                    bala.resetBala();
                 }
                 
                 //Llamamos a la variable cuerpoNave para ejecutar el movimiento.
