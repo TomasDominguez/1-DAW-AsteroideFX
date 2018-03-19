@@ -187,7 +187,6 @@ public class Nave {
     public void posicionCentral(){
         naveCenterX = 400;
         naveCenterY = 300;
-        velNave = 0.0;
     }
     
     // Declaramos el metodo para el anuglo de la bala.

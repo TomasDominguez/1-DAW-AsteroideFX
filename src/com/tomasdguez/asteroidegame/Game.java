@@ -77,6 +77,11 @@ public class Game extends Application {
                 case UP:
                     miNave.acelerarNave();
                     break;
+                case SPACE:
+                    bala.bala();
+                    break;
+                    
+                // Estilos CSS.
                 case F1:
                     ventana.getStylesheets().clear();
                     ventana.getStylesheets().add("resources/css/style1.css");
@@ -89,11 +94,6 @@ public class Game extends Application {
                     ventana.getStylesheets().clear();
                     ventana.getStylesheets().add("resources/css/style3.css");
                     break;
-                case SPACE:
-                    bala.bala();
-                    
-                    break;
-                    
             }
         });
         // Con esta sentencia se para el movimiento al dejar de pulsar las teclas.
@@ -102,7 +102,6 @@ public class Game extends Application {
             miNave.stopGiroNave();
         });
         
-                 
         // Declaramos la Animación.
         AnimationTimer animationAsteroide; // Final de la Animación.
         animationAsteroide = new AnimationTimer(){
