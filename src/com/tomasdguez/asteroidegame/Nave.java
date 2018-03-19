@@ -20,10 +20,11 @@ public class Nave {
     final int MEDIDAS_Y = 600;
 
     // Declaramos las variables de ejes de la nave y del la llama.
-    int naveCenterX = 400;
-    int naveCenterY = 300;
-    int colaCenterX = 400;
-    int colaCenterY = 300;
+    double naveCenterX = 400;
+    double naveCenterY = 300;
+    double colaCenterX = 400;
+    double
+            colaCenterY = 300;
     
     // Declaramos la variable para la nave.
     Polygon cuerpoNave;
@@ -64,7 +65,8 @@ public class Nave {
            30.0, 0.0,
            -10.0, -10.0
         });
-        cuerpoNave.setFill(Color.BLACK);
+//        cuerpoNave.setFill(Color.WHITE);
+        cuerpoNave.setId("nave");
     }
     
     // Declaramos el metodo del segundo polígono en la parte trasera cuando acelere color Gris.

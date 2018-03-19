@@ -10,5 +10,5 @@ and open the template in the editor.
 
 .root {
     -fx-background-image: url("../img/fondo2.jpg");
-    -fx-opacity: 0.5;
+    /*-fx-opacity: 0.5;*/
 };

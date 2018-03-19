@@ -10,5 +10,8 @@ and open the template in the editor.
 
 .root {
     -fx-background-image: url("../img/fondo1.jpg");
-    -fx-opacity: 0.5;
+    /*-fx-opacity: 0.5;*/
+};
+#nave  {
+    -fx-fill: yellow;
 };

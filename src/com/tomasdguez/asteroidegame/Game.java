@@ -10,39 +10,16 @@
  */
 package com.tomasdguez.asteroidegame;
 
-import java.util.Random;
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.stage.Stage;
-import javafx.scene.shape.Polygon;
-import javafx.animation.AnimationTimer;
-import javafx.geometry.Point3D;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
+
+
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.geometry.Point2D;
-import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Polygon;
-import javafx.scene.shape.Shape;
 import javafx.stage.Stage;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontPosture;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
 /**
  *
  * @author tomasdg (deaquinodg@gmail.com)
@@ -50,13 +27,15 @@ import javafx.scene.text.Text;
 public class Game extends Application {
 
     // Creamos la variable para la Pantalla de root.
-    Pane root;
+    public static Pane root = new Pane();
     
     // Declaramos las constantes de la dimensión de la ventana en pixel.
     final int MEDIDAS_X = 800;
     final int MEDIDAS_Y = 600;
     
     public static Nave miNave = new Nave();
+    
+    public static Municion bala = new Municion();
     
     @Override
     public void start(Stage primaryStage) {
@@ -83,18 +62,10 @@ public class Game extends Application {
         root.getChildren().add(miAsteroide.asteroide);
         
         // LLama al metodo crearMunicion para su muestra en pantalla.
-        Municion crearBala = new Municion();
-        crearBala.crearMunicion();
-        root.getChildren().add(crearBala.circuloBala);
+        bala.bala();
+        root.getChildren().add(bala.circuloBala);
         
-        // Sentencia para el disparo.
-        ventana.setOnKeyPressed((KeyEvent event) ->{
-              switch(event.getCode()){
-                  case SPACE:
-              }
-           });
-                
-        // Movimiento para la nave.
+        // Controles de teclado.
         ventana.setOnKeyPressed((KeyEvent event)->{
             switch(event.getCode()){
                 case RIGHT:
@@ -106,20 +77,23 @@ public class Game extends Application {
                 case UP:
                     miNave.acelerarNave();
                     break;
-                case Q:
+                case F1:
+                    ventana.getStylesheets().clear();
                     ventana.getStylesheets().add("resources/css/style1.css");
                     break;
-                case W:
+                case F2:
                     ventana.getStylesheets().clear();
                     ventana.getStylesheets().add("resources/css/style2.css");
                     break;
-                case E:
+                case F3:
                     ventana.getStylesheets().clear();
                     ventana.getStylesheets().add("resources/css/style3.css");
                     break;
                 case SPACE:
-                    crearBala.moverBala();
+                    bala.bala();
+                    
                     break;
+                    
             }
         });
         // Con esta sentencia se para el movimiento al dejar de pulsar las teclas.
@@ -146,13 +120,13 @@ public class Game extends Application {
                 }
                 
                 // Sentencia de colisión. Munición, Asteroide.
-                Shape colisionBalaAsteroide = Shape.intersect(crearBala.circuloBala, miAsteroide.asteroide);
+                Shape colisionBalaAsteroide = Shape.intersect(bala.circuloBala, miAsteroide.asteroide);
                 boolean colisionBala = colisionBalaAsteroide.getBoundsInLocal().isEmpty();
                 if (colisionBala == false){
                         miAsteroide.posicionAsteroide();
                         miAsteroide.randomAsteroide();
-                        crearBala.crearMunicion();
-                        crearBala.resetBala();
+                        bala.bala();
+                        bala.resetBala();
                 }
              
                 //Llamamos a la variable cuerpoNave para ejecutar el movimiento.

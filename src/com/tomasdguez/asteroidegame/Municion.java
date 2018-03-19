@@ -5,7 +5,6 @@
  */
 package com.tomasdguez.asteroidegame;
 
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -16,7 +15,7 @@ import javafx.scene.shape.Circle;
  */
 public class Municion {
     // Creamos la variable para la Pantalla de root.
-    Pane root;
+//    Pane root;
     
     // Declaramos las constantes de la dimensión de la ventana en pixel.
     final int MEDIDAS_X = 800;
@@ -26,8 +25,8 @@ public class Municion {
     Circle circuloBala;
         
     //Variable de la bala.
-    int balaCenterX = 400;
-    int balaCenterY = 300;
+    double balaCenterX = 400;
+    double balaCenterY = 300;
     
     // Variable de la velocidad de la bala
     double velMunicion = 10;
@@ -53,15 +52,15 @@ public class Municion {
     double velocidadY;
             
     // Declaramos el metodo para la Munición ó Bala a disparar.
-    public void crearMunicion(){
+    public void bala(){
       circuloBala = new Circle(balaCenterX, balaCenterY, 2, Color.BLACK);
       dirSenMuniX=Math.sin(Math.toRadians(Game.miNave.anguloNaveBala()));
       dirCosMuniY=Math.cos(Math.toRadians(Game.miNave.anguloNaveBala()));
       posicionX=posX;
       posicionY=posY;
      // velocidadBalaX= velocidadX+velMunicion*dirSenMuniX;
-      //velocidadBalaY= velocidadY+velMunicion*dirCosMuniY;
-    }     
+     //velocidadBalaY= velocidadY+velMunicion*dirCosMuniY;
+    }  
     
     // Declaramaos el metodo para el movimiento de la Bala al disparar.
     public void moverBala(){
@@ -69,17 +68,17 @@ public class Municion {
         circuloBala.setLayoutY(posY);
         posX=posX+velMunicion;
         posY=posY+velMunicion;
-        if (posX > root.getWidth()){
+        if (posX > Game.root.getWidth()){
                 posX=0;
             }
             if (posX < 0){
-                posX=root.getWidth();
+                posX=Game.root.getWidth();
             }
-            if (posY > root.getHeight()){
+            if (posY > Game.root.getHeight()){
                 posY=0;
             }
             if (posY < 0){
-                posY=root.getHeight();
+                posY=Game.root.getHeight();
             }
     }
     // Declaramos el metodo para la posición centrla de la bala. (ResetGame).
